@@ -1,0 +1,55 @@
+Instance setup 
+
+{
+  "MaxCount": 1,
+  "MinCount": 1,
+  "ImageId": "ami-0fe8bec493a81c7da",
+  "InstanceType": "t3.micro",
+  "KeyName": "yogeshspark",
+  "EbsOptimized": true,
+  "NetworkInterfaces": [
+    {
+      "AssociatePublicIpAddress": true,
+      "DeviceIndex": 0,
+      "Groups": [
+        "<groupId of the new security group created below>"
+      ]
+    }
+  ],
+  "MetadataOptions": {
+    "HttpTokens": "required",
+    "HttpEndpoint": "enabled",
+    "HttpPutResponseHopLimit": 2
+  },
+  "PrivateDnsNameOptions": {
+    "HostnameType": "ip-name",
+    "EnableResourceNameDnsARecord": true,
+    "EnableResourceNameDnsAAAARecord": false
+  }
+}
+
+Security group setup 
+
+{
+  "GroupName": "launch-wizard-1",
+  "Description": "launch-wizard-1 created 2023-11-11T07:45:35.491Z",
+  "VpcId": "vpc-0f90d7afbccaabe91"
+}
+
+API call: AuthorizeSecurityGroupIngress
+
+{
+  "GroupId": "<groupId of the security group created above>",
+  "IpPermissions": [
+    {
+      "IpProtocol": "tcp",
+      "FromPort": 22,
+      "ToPort": 22,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    }
+  ]
+}
